@@ -44,7 +44,6 @@ Make sure the following are installed:
 
 1. Clone the repository:
 
-```bash
 git clone <repository-url>
 cd CarHealth-Lite
 Install backend dependencies:
