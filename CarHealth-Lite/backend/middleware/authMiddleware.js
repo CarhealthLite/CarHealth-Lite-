@@ -1,14 +1,22 @@
-const jwt = require('jsonwebtoken');
+﻿const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-exports.protect = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'No token' });
+const protect = async (req, res, next) => {
+  let token;
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch {
-    res.status(401).json({ error: 'Token invalid' });
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await User.findById(decoded.id).select('-password');
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(401).json({ success: false, message: 'Token invalid sau expirat' });
+    }
+  } else {
+    res.status(401).json({ success: false, message: 'Nu ai autorizare, token lipsă' });
   }
 };
+
+module.exports = { protect };

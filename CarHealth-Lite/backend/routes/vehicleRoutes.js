@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { getVehicles, addVehicle } = require('../controllers/vehicleController');
-const { protect } = require('../middleware/authMiddleware');
+const { getVehicles, addVehicle, updateVehicle, deleteVehicle } = require('../controllers/vehicleController');
+const { protect } = require('../middleware/authMiddleware'); 
 
-router.get('/', protect, getVehicles);
-router.post('/', protect, addVehicle);
+router.route('/')
+  .get(protect, getVehicles)
+  .post(protect, addVehicle);
+
+router.route('/:id')
+  .put(protect, updateVehicle)
+  .delete(protect, deleteVehicle);
 
 module.exports = router;

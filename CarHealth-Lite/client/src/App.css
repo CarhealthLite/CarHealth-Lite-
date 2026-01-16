@@ -1,31 +1,69 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #f4f6fb 0%, #eef1f7 100%);
 }
 
-.auth-container, .dashboard-container {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.auth-container input, .auth-container button {
-  display: block;
+.auth-container,
+.dashboard-container {
+  max-width: 560px;
   width: 100%;
+  padding: 44px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  font-size: 17px;
+}
+
+.page-logo {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 14px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+  object-fit: contain;
+}
+
+.page-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.page-logo--dashboard {
+  width: 360px;
+  height: 360px;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
   margin: 10px 0;
-  padding: 10px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
+  width: 100%;
+  padding: 12px;
+  font-size: 17px;
   background-color: #007bff;
   color: white;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -35,4 +73,10 @@ button:hover {
 .error {
   color: red;
   font-size: 14px;
+  text-align: center;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
 }

@@ -1,225 +1,211 @@
-# News Analyser Web Application
+﻿# CarHealth Lite
 
-A full-stack web application for analyzing news articles using Google's Gemini AI. Users can submit news article URLs, and the application will extract topics, analyze sentiment, and compare perspectives across different sources.
+Aplicatie web full-stack pentru diagnostic auto asistat de AI. Utilizatorii isi creeaza cont, se autentifica si pot genera un diagnostic pe baza informatiilor despre vehicul si simptome.
 
-## Features
+## Functionalitati
 
-- **User Authentication**: Secure signup and login with JWT-based authentication
-- **Project Management**: Create, view, and manage news analysis projects
-- **AI-Powered Analysis**: Uses Google Gemini AI to:
-  - Extract key topics from news articles
-  - Analyze sentiment (positive/negative/neutral)
-  - Compare perspectives across different news sources
-- **Web Scraping**: Automatically extracts content from news article URLs
+- Autentificare utilizatori (signup/login) cu JWT
+- Dashboard protejat (necesita token)
+- Diagnostic AI pentru vehicul (marca, model, an, motorizare, simptome etc.)
 
 ## Tech Stack
 
 ### Backend
-- Node.js with Express
-- MongoDB with Mongoose
-- JWT for authentication
-- Google Generative AI (Gemini)
-- Axios & Cheerio for web scraping
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT
+- OpenAI API (model: gpt-5-nano)
 
 ### Frontend
-- React 19
-- React Router for navigation
-- Axios for API calls
-- Modern CSS styling
+- React 18
+- React Router
+- Axios
+- CSS custom
 
-## Prerequisites
+## Prerechizite
 
-Before you begin, ensure you have the following installed:
-- **Node.js** (v16 or higher) and npm
-- **MongoDB** (local installation or MongoDB Atlas account)
-- **Google Gemini API Key** (get it from [Google AI Studio](https://aistudio.google.com/app/apikey))
+- Node.js (v16+)
+- npm
+- MongoDB local sau MongoDB Atlas
+- Cheie OpenAI (OPENAI_API_KEY)
 
-## Installation
+## Instalari necesare din consola
 
-### 1. Clone the Repository
+Nu trebuie instalat nimic separat pentru AI sau MongoDB in afara de pachetele proiectului.
+
+- Backend: `npm install` (instaleaza OpenAI, Mongoose etc.)
+- Frontend: `npm install`
+
+MongoDB:
+- Daca folosesti MongoDB Atlas, nu instalezi nimic local.
+- Daca vrei MongoDB local, instalezi separat MongoDB si pui `MONGO_URI` catre local.
+
+## Instalare
+
+### 1) Clone repository
 
 ```bash
 git clone <repository-url>
-cd 25-26IEWebAppsNewsAnalyser
+cd CarHealth-Lite
 ```
 
-### 2. Backend Setup
-
-Navigate to the backend directory and install dependencies:
+### 2) Backend - instalare pachete
 
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` directory with the following variables:
+### 3) Backend - configurare variabile de mediu
+
+Creeaza `backend/config.env` (sau `backend/.env`). Aplicatia cauta `config.env` mai intai.
 
 ```env
-# MongoDB Connection String
-# For local MongoDB: mongodb://localhost:27017/news-analyser
-# For MongoDB Atlas: mongodb+srv://<username>:<password>@cluster.mongodb.net/news-analyser
-MONGO_URI=mongodb://localhost:27017/news-analyser
-
-# JWT Secret Key (use a strong random string)
-JWT_SECRET=your_super_secret_jwt_key_here_change_this_in_production
-
-# Google Gemini API Key (get from https://aistudio.google.com/app/apikey)
-GEMINI_API_KEY=your_gemini_api_key_here
-
-# Server Port (optional, defaults to 5000)
-PORT=5001
-
-# Client Origin for CORS (optional, defaults to http://localhost:3000)
-CLIENT_ORIGIN=http://localhost:3000
-
-# Gemini Model (optional, defaults to gemini-2.5-flash)
-# Alternatives: gemini-1.5-flash-latest, gemini-1.5-pro-latest, gemini-2.0-flash-exp
-GEMINI_MODEL=gemini-2.5-flash
+MONGO_URI=mongodb://localhost:27017/carhealth
+JWT_SECRET=schimba_cu_un_secret_puternic
+OPENAI_API_KEY=cheia_ta_openai
+PORT=5000
 ```
 
-### 3. Frontend Setup
-
-Navigate to the client directory and install dependencies:
+### 4) Frontend - instalare pachete
 
 ```bash
 cd ../client
 npm install
 ```
 
-(Optional) Create a `.env` file in the `client` directory if you need to customize the API URL:
+## Rulare locala
 
-```env
-# Backend API URL (optional, defaults to http://localhost:5001/api)
-REACT_APP_API_URL=http://localhost:5001/api
-```
-
-## Running the Application
-
-### Start the Backend Server
-
-From the `backend` directory:
+### Backend
 
 ```bash
+cd backend
 npm start
 ```
 
-The backend server will start on `http://localhost:5001` (or the port specified in your `.env` file).
+Serverul porneste pe `http://localhost:5000`.
 
-You should see:
-```
-Server running on port 5001
-MongoDB Connected
-```
-
-### Start the Frontend Development Server
-
-From the `client` directory (in a new terminal):
+### Frontend
 
 ```bash
+cd client
 npm start
 ```
 
-The React app will start on `http://localhost:3000` and should automatically open in your browser.
+Aplicatia porneste pe `http://localhost:3000`.
 
-## Usage
+## Utilizare
 
-### 1. Create an Account
+### 1) Creare cont
 
-- Navigate to `http://localhost:3000`
-- Click on "Sign Up" or go to the signup page
-- Enter your email and password
-- Click "Sign Up" to create your account
+- Acceseaza `http://localhost:3000`
+- Mergi la pagina de signup
+- Introdu datele si creeaza cont
 
-### 2. Log In
+### 2) Login
 
-- Enter your credentials on the login page
-- You'll be redirected to the dashboard upon successful authentication
+- Introdu email si parola
+- Vei fi redirectionat catre dashboard
 
-### 3. Create a News Analysis Project
+### 3) Diagnostic AI
 
-- On the dashboard, enter a project name
-- Add news article URLs (one or multiple)
-- Click "Create Project" to submit
+- Completeaza formularul cu datele masinii
+- Apasa butonul de diagnostic
+- Vei primi un raspuns generat de AI
 
-### 4. View Analysis Results
+## API (backend)
 
-- The application will:
-  - Scrape content from the provided URLs
-  - Send the content to Google Gemini AI for analysis
-  - Display extracted topics
-  - Show sentiment analysis and perspectives for each source
-- View your analysis results on the dashboard
+- `POST /auth/signup` (name, email, password)
+- `POST /auth/login` (email, password)
+- `POST /api/diagnostic` (necesita `Authorization: Bearer <token>`)
 
-### 5. Manage Projects
+## Variabile de mediu
 
-- All your projects are saved and displayed on the dashboard
-- View past analyses at any time
+### Backend
 
-## Environment Variables Reference
+| Variabila | Necesara | Descriere |
+|----------|----------|-----------|
+| `MONGO_URI` | Da | Conexiune MongoDB |
+| `JWT_SECRET` | Da | Secret pentru JWT |
+| `OPENAI_API_KEY` | Da | Cheie OpenAI |
+| `PORT` | Nu | Port backend (default 5000) |
 
-### Backend (.env)
+### Frontend
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `MONGO_URI` | ✅ Yes | - | MongoDB connection string |
-| `JWT_SECRET` | ✅ Yes | - | Secret key for JWT token signing |
-| `GEMINI_API_KEY` | ✅ Yes | - | Google Gemini API key |
-| `PORT` | ❌ No | `5000` | Port for the backend server |
-| `CLIENT_ORIGIN` | ❌ No | `http://localhost:3000` | Frontend URL for CORS |
-| `GEMINI_MODEL` | ❌ No | `gemini-2.5-flash` | Gemini model to use |
+| Variabila | Necesara | Descriere |
+|----------|----------|-----------|
+| `REACT_APP_API_URL` | Nu | URL API backend (daca vrei alt host) |
 
-### Frontend (.env) - Optional
+## CORS si API URL
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `REACT_APP_API_URL` | ❌ No | `http://localhost:5001/api` | Backend API base URL |
+- Backend: `backend/server.js` are CORS setat pe `http://localhost:3000`. Pentru deploy actualizeaza origin.
+- Frontend: `client/src/services/api.js` foloseste `http://localhost:5000` ca baza.
+
+## Structura proiect
+
+```
+CarHealth-Lite/
+├── backend/
+│   ├── config/
+│   │   └── db.js               
+│   ├── controllers/
+│   │   ├── authController.js   
+│   │   └── vehicleController.js
+│   ├── middleware/
+│   │   └── authMiddleware.js   
+│   ├── models/
+│   │   ├── User.js             
+│   │   └── Vehicle.js          
+│   ├── routes/
+│   │   ├── authRoutes.js      
+│   │   ├── diagnosticRoutes.js 
+│   │   └── vehicleRoutes.js    
+│   ├── utils/
+│   │   └── generateToken.js    
+│   ├── server.js              
+│   └── package.json
+├── client/
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── CarHealth Lite.png  
+│   │   └── favicon.ico        
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── PrivateRoute.js 
+│   │   ├── context/
+│   │   │   └── AuthContext.js  
+│   │   ├── pages/
+│   │   │   ├── Login.js
+│   │   │   ├── Signup.js
+│   │   │   └── Dashboard.js
+│   │   ├── services/
+│   │   │   └── api.js         
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── index.js
+│   │   └── index.css
+│   └── package.json
+├── README.md
+└── LICENSE
+```
 
 ## Troubleshooting
 
-### MongoDB Connection Issues
-- Ensure MongoDB is running locally or your MongoDB Atlas connection string is correct
-- Check that the database name in your `MONGO_URI` is correct
+### MongoDB
+- Verifica `MONGO_URI`
+- Daca folosesti Atlas, permite accesul IP-ului tau
 
-### Gemini API Errors
-- Verify your `GEMINI_API_KEY` is valid
-- If you get model errors, try switching to `gemini-1.5-flash-latest` in your `.env`
-- Check your API quota at [Google AI Studio](https://aistudio.google.com)
+### OpenAI
+- Verifica `OPENAI_API_KEY`
+- Daca primesti erori de autentificare, refa cheia
 
-### CORS Errors
-- Ensure `CLIENT_ORIGIN` in backend `.env` matches your frontend URL
-- Make sure both frontend and backend servers are running
-
-### Port Already in Use
-- If port 5001 or 3000 is already in use, change the `PORT` in backend `.env` or update `REACT_APP_API_URL` accordingly
-
-## Project Structure
-
-```
-25-26IEWebAppsNewsAnalyser/
-├── backend/
-│   ├── controllers/      # Request handlers
-│   ├── middleware/       # Authentication middleware
-│   ├── models/          # MongoDB schemas
-│   ├── routes/          # API routes
-│   ├── services/        # Gemini AI service
-│   ├── server.js        # Express server setup
-│   └── package.json
-├── client/
-│   ├── public/          # Static files
-│   ├── src/
-│   │   ├── pages/       # React components (Login, Signup, Dashboard)
-│   │   ├── api.js       # Axios configuration
-│   │   ├── App.js       # Main app component
-│   │   └── index.js     # React entry point
-│   └── package.json
-└── README.md
-
-```
+### CORS
+- Asigura-te ca frontend si backend au URL-urile corecte
 
 ## License
 
-See the LICENSE file for details.
+Vezi fisierul `LICENSE`.
 
 ## Support
 
-For issues or questions, please open an issue in the repository.
+Pentru intrebari, deschide un issue in repository.
