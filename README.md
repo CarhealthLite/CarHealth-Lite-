@@ -22,7 +22,7 @@ Aplicatie web full-stack pentru diagnostic auto asistat de AI. Utilizatorii isi 
 - Axios
 - CSS custom
 
-## Prerechizite
+## Condiții necesare
 
 - Node.js (v16+)
 - npm
