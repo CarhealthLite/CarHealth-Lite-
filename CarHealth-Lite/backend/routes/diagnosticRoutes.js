@@ -40,7 +40,7 @@ Kilometraj: ${kilometraj}
 Răspunsul trebuie să fie:
 - Clar, concis și corect din punct de vedere al limbii române
 - Aerisit, ușor de citit
-- Să aibă minim 7 propoziții
+- Să fie lung cu multe detalii în mai multe propoziții în care explici fiecare problemă și ce soluție poate avea sau daca este prea complicat să indici transportarea la un mecanic
 - Include emoji-uri relevante
 - Folosește bold acolo unde este important, de exemplu la categorii sau la sfaturi
 - Nu oferi sugestii pentru viitor și nu continua conversația
@@ -62,3 +62,4 @@ Include și un procent de probabilitate a defectului, pe care îl voi folosi pen
 
 
 module.exports = router;
+
