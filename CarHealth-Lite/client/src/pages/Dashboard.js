@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
+const BASE_URL =
+  process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const { isAuthenticated, token } = useAuth();
@@ -39,7 +42,7 @@ const Dashboard = () => {
     setProbabilitate(null);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/diagnostic', form, {
+      const res = await axios.post(`${BASE_URL}/api/diagnostic`, form, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
