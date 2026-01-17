@@ -22,3 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 /backend/.env
 .env 
+backend/config.env
+client/.env
