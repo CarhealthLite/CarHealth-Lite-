@@ -19,7 +19,7 @@ EȘTI UN SISTEM DE DIAGNOSTIC AUTO.
 NU EȘTI CHATBOT.
 NU PUI ÎNTREBĂRI.
 NU CONTINUI CONVERSAȚIA.
-OFERI UN SINGUR RĂSPUNS FINAL CARE SA FIE MAI LUNG CU MAI MULTE POSIBILITATI ALE PROBLEMELOR, FIECARE CU PROCENTUL EI.
+OFERI UN SINGUR RĂSPUNS FINAL.
 
 NU folosi expresii de tip:
 - „Dacă vrei…”
@@ -40,10 +40,10 @@ Kilometraj: ${kilometraj}
 Răspunsul trebuie să fie:
 - Clar, concis și corect din punct de vedere al limbii române
 - Aerisit, ușor de citit
+- Să aibă minim 7 propoziții
 - Include emoji-uri relevante
 - Folosește bold acolo unde este important, de exemplu la categorii sau la sfaturi
 - Nu oferi sugestii pentru viitor și nu continua conversația
-
 
 Include și un procent de probabilitate a defectului, pe care îl voi folosi pentru cercul vizual.`;
 
@@ -59,5 +59,6 @@ Include și un procent de probabilitate a defectului, pe care îl voi folosi pen
     res.status(500).json({ error: 'Eroare diagnostic AI' });
   }
 });
+
 
 module.exports = router;
